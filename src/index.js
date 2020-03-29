@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
+import './assets/vendor/fontawesome-free/css/all.min.css'
+import './assets/css/sb-admin.css'
+import './assets/vendor/bootstrap/js/bootstrap.bundle.min.js.map';
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <App />,
   document.getElementById('root')
 );
 
