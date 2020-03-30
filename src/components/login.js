@@ -27,6 +27,8 @@ class Login extends Component {
         
         if(userName === 'h.long' && password === 'abc'){
             console.log("đăng nhập thành công");
+            localStorage.setItem('token',this.makeid(10));
+            localStorage.setItem('isLogin',true);
             this.setState({redirect :true});
         }else if(userName !== 'h.long'){
             console.log("sai username");
@@ -36,6 +38,16 @@ class Login extends Component {
     
     }
 
+    makeid(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+           result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+     }
+    
     renderRedirect = () =>{
         if(this.state.redirect){
             return   <Redirect to='/dashboard'/>
