@@ -15,13 +15,15 @@ export default class EditEmployee extends Component {
     componentDidUpdate(){
         const empList = localStorage.getItem('listEmp');
         const empParse =  JSON.parse(empList);
+        console.log(empParse);
         const id =this.props.empId;
-        console.log(id);
         let emp = empParse.filter(e =>{
-            return e.id === id} );
+            console.log('e.id : '+e.id);
+            console.log('id: '+ id)
+            return e.id == id} );
          console.log(emp)   
-   
     }
+
     render() {
 
         return (
