@@ -8,20 +8,23 @@ export default class EditEmployee extends Component {
 
     constructor(props) {
         super(props);
-        this.state={
-            employee :[]
+        this.state = {
+            employee: {},
         }
     }
-    componentDidUpdate(){
+    componentDidMount() {
         const empList = localStorage.getItem('listEmp');
-        const empParse =  JSON.parse(empList);
-        console.log(empParse);
-        const id =this.props.empId;
-        let emp = empParse.filter(e =>{
-            console.log('e.id : '+e.id);
-            console.log('id: '+ id)
-            return e.id == id} );
-         console.log(emp)   
+        const empParse = JSON.parse(empList);
+        const id = this.props.empId;
+        let emp = empParse.filter(e => {
+            return e.id === parseInt(id);
+        });
+        let employee = emp[0];
+        this.setState({ employee });
+    }
+    handleChangeInput=(e)=>{
+        let name= e.target.nameEdit;
+        this.setState({employee.name:name})
     }
 
     render() {
@@ -29,7 +32,7 @@ export default class EditEmployee extends Component {
         return (
             <div>
 
-                <div className="modal fade" id="editEmpId"  role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                <div className="modal fade" id="editEmpId" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -42,7 +45,7 @@ export default class EditEmployee extends Component {
                                 <div className="container-fluid">
                                     <div className="form-group">
                                         <label htmlFor="nameEdit" className="col-form-label">Tên:</label>
-                                        <input type="text" className="form-control" id="nameEdit" />
+                                        <input type="text" className="form-control" name="nameEdit" id="nameEdit" value={this.state.employee.name} onChange={this.handleChangeInput}/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="phoneEdit" className="col-form-label">Số điện thoại:</label>

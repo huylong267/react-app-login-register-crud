@@ -10,6 +10,7 @@ class Employee extends Component {
         this.state = {
             employees: [],
             idEdit:-1,
+            showModal:false
 
         }
     }
@@ -20,9 +21,12 @@ class Employee extends Component {
 
     }
     handleEditPassId =(event) =>{
-      this.setState({idEdit: event.target.value})  
+      this.setState({idEdit: event.target.value});
+      this.setState({showModal:true}) ;
+     
     }
     render() {
+        
         var listEmp = this.state.employees.map((e, index) => {
             return <tr key={e.id}>
                 <td>{index + 1}</td>
@@ -79,7 +83,7 @@ class Employee extends Component {
                                 </div>
                                 <div className="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                             </div>
-                            <EditEmployee empId ={ this.state.idEdit }></EditEmployee>
+                            <div>{this.state.showModal === true ? <EditEmployee empId={this.state.idEdit}></EditEmployee>: ''}</div>
                             <footer className="sticky-footer">
                                 <div className="container my-auto">
                                     <div className="copyright text-center my-auto">
