@@ -9,8 +9,7 @@ class Employee extends Component {
 
         this.state = {
             employees: [],
-            idEdit:-1,
-            showModal:false
+            employee:{}
 
         }
     }
@@ -18,12 +17,16 @@ class Employee extends Component {
         const employees = localStorage.getItem('listEmp');
         const parseList = JSON.parse(employees);
         this.setState({ employees: parseList });
-        this.setState({showModal:true}) ;
 
     }
-    handleEditPassId =(event) =>{
-      this.setState({idEdit: event.target.value});
-
+    handleEditPassEmp =(event) =>{
+        const id = event.target.value;
+      const empList = localStorage.getItem('listEmp');
+      const empParse = JSON.parse(empList);
+      let employee = empParse.filter(e => {
+          return e.id === parseInt(id);
+      });
+      this.setState({employee:employee[0]})
      
     }
     render() {
@@ -38,7 +41,7 @@ class Employee extends Component {
                 <td>{e.company}</td>
                 <td>{e.location}</td>
                 <td className="text-center">
-                    <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#editEmpId" value={e.id} onClick={this.handleEditPassId}>
+                    <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#editEmpId" value={e.id} onClick={this.handleEditPassEmp}>
                         Edit
                 </button>
                 </td>
@@ -84,7 +87,7 @@ class Employee extends Component {
                                 </div>
                                 <div className="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                             </div>
-                            <div>{this.state.showModal === true ? <EditEmployee empId={this.state.idEdit}></EditEmployee>: ''}</div>
+                           <EditEmployee employee={this.state.employee}></EditEmployee>
                             <footer className="sticky-footer">
                                 <div className="container my-auto">
                                     <div className="copyright text-center my-auto">
