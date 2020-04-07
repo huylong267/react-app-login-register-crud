@@ -22,10 +22,10 @@ export default class EditEmployee extends Component {
         let employee = emp[0];
         this.setState({ employee });
     }
-    handleChangeInput=(e)=>{
-        let name= e.target.nameEdit;
-        this.setState({employee.name:name})
-    }
+    // handleChangeInput=(e)=>{
+    //     let name= e.target.nameEdit;
+    //     this.setState({employee.name:name})
+    // }
 
     render() {
 
@@ -45,7 +45,7 @@ export default class EditEmployee extends Component {
                                 <div className="container-fluid">
                                     <div className="form-group">
                                         <label htmlFor="nameEdit" className="col-form-label">Tên:</label>
-                                        <input type="text" className="form-control" name="nameEdit" id="nameEdit" value={this.state.employee.name} onChange={this.handleChangeInput}/>
+                                        <input type="text" className="form-control" name="nameEdit" id="nameEdit" />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="phoneEdit" className="col-form-label">Số điện thoại:</label>

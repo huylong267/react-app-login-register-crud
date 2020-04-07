@@ -18,11 +18,12 @@ class Employee extends Component {
         const employees = localStorage.getItem('listEmp');
         const parseList = JSON.parse(employees);
         this.setState({ employees: parseList });
+        this.setState({showModal:true}) ;
 
     }
     handleEditPassId =(event) =>{
       this.setState({idEdit: event.target.value});
-      this.setState({showModal:true}) ;
+
      
     }
     render() {
