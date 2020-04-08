@@ -56,23 +56,23 @@ export default class EditEmployee extends Component {
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="phoneEdit" className="col-form-label">Số điện thoại:</label>
-                                        <input type="text" className="form-control" id="phoneEdit" onChange={this.handleChangeInput} value={this.state.employee.phone}/>
+                                        <input type="text" className="form-control" id="phoneEdit" name="phone" onChange={this.handleChangeInput} value={this.state.employee.phone}/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="emailEdit" className="col-form-label">Email:</label>
-                                        <input type="text" className="form-control" id="emailEdit" name="emailEdit" value={this.state.employee.email}/>
+                                        <input type="text" className="form-control" id="emailEdit" name="email" value={this.state.employee.email}/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="empIdEdit" className="col-form-label">Mã nhân viên:</label>
-                                        <input type="text" className="form-control" id="empIdEdit" name="empIdEdit" value={this.state.employee.empId}/>
+                                        <input type="text" className="form-control" id="empIdEdit" name="empId" value={this.state.employee.empId}/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="companyEdit" className="col-form-label">Tên Công ty:</label>
-                                        <input type="text" className="form-control" id="companyEdit" name="companyEdit" value={this.state.employee.company}/>
+                                        <input type="text" className="form-control" id="companyEdit" name="company" value={this.state.employee.company}/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="addressEdit" className="col-form-label">Địa chỉ:</label>
-                                        <input type="text" className="form-control" id="addressEdit" name="addressEdit" value={this.state.employee.location}/>
+                                        <input type="text" className="form-control" id="addressEdit" name="location" value={this.state.employee.location}/>
                                     </div>
                                 </div>
                             </div>
