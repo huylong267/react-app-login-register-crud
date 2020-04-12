@@ -10,76 +10,84 @@ export default class EditEmployee extends Component {
         super(props);
         this.state = {
             employee: {},
-                nameEdit:'',
-                phoneEdit:'',
-                emailEdit:'',
-                empIdEdit:'',
-                companyEdit:'',
-                addressEdit:''
+
         }
     }
 
 
     shouldComponentUpdate(nextProps, nextState) {
         if (this.props.employee.id !== nextProps.employee.id) {
-            this.setState({employee:nextProps.employee});
+            this.setState({ employee: nextProps.employee });
         }
-        return true;}
-    handleChangeInput=(e)=>{
-       var target =e.target;
-       var name = target.name;
-       var value = target.value;
-       this.setState({
-           [name] : value
-       })
-
+        return true;
     }
 
+    handleChangeInput = (e) => {
+        const target = e.target;
+        const name = target.name;
+        const value = target.value;
+        this.setState(prevState => ({
+            employee: {
+                ...prevState.employee, [name]: value
+            }
+
+        }))
+    }
+
+    onReceiveSubmit = (e) => {
+        e.preventDefault();
+        this.props.onReceiveSubmitEdit(this.state.employee);
+       
+    }
     render() {
         return (
-            <div>
-
-                <div className="modal fade" id="editEmpId" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+            <div>    
+                <div className="modal fade" id="editModal" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Sửa thông tin  nhân viên</h5>
+                                <h5 className="modal-title">Edit infomation</h5>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div className="modal-body">
-                                <div className="container-fluid">
-                                    <div className="form-group">
-                                        <label htmlFor="nameEdit" className="col-form-label">Tên:</label>
-                                        <input type="text" className="form-control" name="nameEdit" id="nameEdit" onChange={this.handleChangeInput} value={this.state.employee.name}/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="phoneEdit" className="col-form-label">Số điện thoại:</label>
-                                        <input type="text" className="form-control" id="phoneEdit" name="phone" onChange={this.handleChangeInput} value={this.state.employee.phone}/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="emailEdit" className="col-form-label">Email:</label>
-                                        <input type="text" className="form-control" id="emailEdit" name="email" value={this.state.employee.email}/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="empIdEdit" className="col-form-label">Mã nhân viên:</label>
-                                        <input type="text" className="form-control" id="empIdEdit" name="empId" value={this.state.employee.empId}/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="companyEdit" className="col-form-label">Tên Công ty:</label>
-                                        <input type="text" className="form-control" id="companyEdit" name="company" value={this.state.employee.company}/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="addressEdit" className="col-form-label">Địa chỉ:</label>
-                                        <input type="text" className="form-control" id="addressEdit" name="location" value={this.state.employee.location}/>
+                            <form action="" onSubmit={this.onReceiveSubmit}>
+                                <div className="modal-body">
+                                    <div className="container-fluid">
+
+                                        <div className="form-group">
+                                            <label htmlFor="nameEdit" className="col-form-label">Name:</label>
+                                            <input type="text" className="form-control" name="name" id="nameEdit" onChange={this.handleChangeInput} value={this.state.employee.name} />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="phoneEdit" className="col-form-label">Phone No:</label>
+                                            <input type="text" className="form-control" id="phoneEdit" name="phone" onChange={this.handleChangeInput} value={this.state.employee.phone} />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="emailEdit" className="col-form-label">Email:</label>
+                                            <input type="text" className="form-control" id="emailEdit" name="email" onChange={this.handleChangeInput} value={this.state.employee.email} />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="empIdEdit" className="col-form-label">Emp Id:</label>
+                                            <input type="text" className="form-control" id="empIdEdit" name="empId" onChange={this.handleChangeInput} value={this.state.employee.empId} />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="companyEdit" className="col-form-label">Company:</label>
+                                            <input type="text" className="form-control" id="companyEdit" name="company" onChange={this.handleChangeInput} value={this.state.employee.company} />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="addressEdit" className="col-form-label">Location:</label>
+                                            <input type="text" className="form-control" id="addressEdit" name="location" onChange={this.handleChangeInput} value={this.state.employee.location} />
+                                        </div>
+
                                     </div>
                                 </div>
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-primary">Save</button>
-                            </div>
+
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" className="btn btn-primary">Save</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

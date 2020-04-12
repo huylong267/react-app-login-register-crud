@@ -10,49 +10,9 @@ class App extends Component {
     super(props)
   
     this.state = {
-      employees :[
-        {
-            id:1,
-            name:'Long',
-            phone:'123456',
-            email:'h@gmail.com',
-            empId:'123',
-            company:'VNPT',
-            location:'HN'
-        },
-        {
-            id:2,
-            name:'Long',
-            phone:'123456',
-            email:'h@gmail.com',
-            empId:'123',
-            company:'VNPT',
-            location:'HN'
-        },
-        {
-            id:3,
-            name:'Long',
-            phone:'123456',
-            email:'h@gmail.com',
-            empId:'123',
-            company:'VNPT',
-            location:'HN'
-        },
-        {
-            id:4,
-            name:'Long',
-            phone:'123456',
-            email:'h@gmail.com',
-            empId:'123',
-            company:'VNPT',
-            location:'HN'
-        }
-    ]
     }
   }
-  componentDidMount(){
-    localStorage.setItem('listEmp',JSON.stringify(this.state.employees));
-  }
+ 
   render() {
     return (
       <div className="App">

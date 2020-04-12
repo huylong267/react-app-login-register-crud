@@ -3,37 +3,112 @@ import Header from "./commons/header";
 import Sidebar from "./commons/sidebar";
 import { Link } from 'react-router-dom';
 import EditEmployee from "./modal/edit-employee";
+import DeleteEmployee from "./modal/delete-employee";
+
 class Employee extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            employees: [],
-            employee:{}
-
+            employees:[],
+            employee: {},
+            isShowModal:true
         }
     }
-    componentDidMount() {
-        const employees = localStorage.getItem('listEmp');
-        const parseList = JSON.parse(employees);
-        this.setState({ employees: parseList });
-
+    componentDidMount(){
+        const employees = [
+            {
+                id: 1,
+                name: 'Long',
+                phone: '123456',
+                email: 'h@gmail.com',
+                empId: '123',
+                company: 'VNPT',
+                location: 'HN'
+            },
+            {
+                id: 2,
+                name: 'Long',
+                phone: '123456',
+                email: 'h@gmail.com',
+                empId: '123',
+                company: 'VNPT',
+                location: 'HN'
+            },
+            {
+                id: 3,
+                name: 'Long',
+                phone: '123456',
+                email: 'h@gmail.com',
+                empId: '123',
+                company: 'VNPT',
+                location: 'HN'
+            },
+            {
+                id: 4,
+                name: 'Long',
+                phone: '123456',
+                email: 'h@gmail.com',
+                empId: '123',
+                company: 'VNPT',
+                location: 'HN'
+            }
+        ]
+        if (localStorage && localStorage.getItem('listEmp')){
+             const listEmp = localStorage.getItem('listEmp');
+             const listParse = JSON.parse(listEmp)
+            this.setState({employees:listParse });
+        }else{
+             const list =JSON.stringify(employees)
+             localStorage.setItem('listEmp',list);
+             this.setState(employees)
+        }
     }
-    handleEditPassEmp =(event) =>{
+    onReceiveSubmitEdit = (employee) =>{
+        const {employees }  = this.state;
+        const index = employees.findIndex(x => x.id ===employee.id);
+        if(index < 0) return;
+        const newList = [...employees];
+        newList.splice(index,1);
+        alert(newList);
+        this.setState({
+            employees: [...newList,employee]
+        })
+        const  listEmp = this.state.employees;
+        alert(JSON.stringify(listEmp));
+        const listEmpSave = JSON.stringify(listEmp);
+        localStorage.setItem('listEmp',listEmpSave);
+        window.location.reload();
+    }
+
+    
+    
+    // showModalDelete = (event) => {
+    //     const id = event.target.value;
+    //     const empList = localStorage.getItem('listEmp');
+    //     const empParse = JSON.parse(empList);
+    //     let employee = empParse.filter(e => {
+    //         return e.id === parseInt(id);
+    //     });
+    //     this.setState({ employee: employee[0] })
+    // }
+    // handleAdd = () => {
+    //     this.setState({ employee: {} })
+    // }
+    handleEditEmp = (event) => {
         const id = event.target.value;
-      const empList = localStorage.getItem('listEmp');
-      const empParse = JSON.parse(empList);
-      let employee = empParse.filter(e => {
-          return e.id === parseInt(id);
-      });
-      this.setState({employee:employee[0]})
-     
+        const empList = this.state.employees;
+        let employee = empList.find(e => {
+            return e.id === parseInt(id);
+        });
+        this.setState({
+            employee
+        })
     }
     render() {
-        
         var listEmp = this.state.employees.map((e, index) => {
-            return <tr key={e.id}>
-                <td>{index + 1}</td>
+            return <tr key={index}>
+                <td>{index+1}</td>
                 <td>{e.name}</td>
                 <td>{e.phone}</td>
                 <td>{e.email}</td>
@@ -41,9 +116,14 @@ class Employee extends Component {
                 <td>{e.company}</td>
                 <td>{e.location}</td>
                 <td className="text-center">
-                    <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#editEmpId" value={e.id} onClick={this.handleEditPassEmp}>
+
+                    <button type="button" className="btn btn-sm btn-primary mr-2" data-toggle="modal" data-target="#editModal" value={e.id} onClick={this.handleEditEmp}>
                         Edit
-                </button>
+                    </button>
+                    {/* <button type="button" className="btn btn-sm btn-danger mr-2" data-toggle="modal" data-target="#deleteModal" value={e.id} onClick={this.showModalDelete}>
+                        Delete
+                </button> */}
+
                 </td>
             </tr>
         });
@@ -60,7 +140,11 @@ class Employee extends Component {
                                     <Link to={'/dashboard'} >Dashboard</Link>
                                 </li>
                                 <li className="breadcrumb-item active">CRUD App</li>
-                                <li className="ml-auto"><Link to={'add'}>Add Employee</Link></li>
+                                {/* <li className="ml-auto"><Link to={'add'} >Add Employee</Link></li> */}
+                                <li className="ml-auto">
+                                    {/* <button type="button" className="btn btn-sm btn-primary mr-2" data-toggle="modal" data-target="#editModal" onClick={this.handleAdd}>Add Employee
+                                </button> */}
+                                </li>
                             </ol>
                             <div className="card mb-3">
                                 <div className="card-header"><i className="fas fa-table"></i>
@@ -87,7 +171,10 @@ class Employee extends Component {
                                 </div>
                                 <div className="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                             </div>
-                           <EditEmployee employee={this.state.employee}></EditEmployee>
+                           <EditEmployee employee={this.state.employee} 
+                                onReceiveSubmitEdit={this.onReceiveSubmitEdit}
+                            ></EditEmployee>
+                            {/* <DeleteEmployee employee={this.state.employee}></DeleteEmployee> */}
                             <footer className="sticky-footer">
                                 <div className="container my-auto">
                                     <div className="copyright text-center my-auto">
