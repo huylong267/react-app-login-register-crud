@@ -20,13 +20,8 @@ export default class DeleteEmployee extends Component {
         }
         return true;}
     handleSubmit=()=>{
-            const listEmp = localStorage.getItem('listEmp');
-            const listEmpParse = JSON.parse(listEmp);
-            const listEmpRemoved = listEmpParse.find(e => {
-                return e.id !== this.state.employee.id;
-            });  
-            localStorage.setItem('listEmp',JSON.stringify(listEmpRemoved));
-            window.location.reload();
+        
+            this.props.onReceiveSubmitDelete(this.state.employee)
     }
 
 

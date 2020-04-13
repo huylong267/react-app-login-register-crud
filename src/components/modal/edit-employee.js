@@ -14,7 +14,6 @@ export default class EditEmployee extends Component {
         }
     }
 
-
     shouldComponentUpdate(nextProps, nextState) {
         if (this.props.employee.id !== nextProps.employee.id) {
             this.setState({ employee: nextProps.employee });
@@ -34,10 +33,14 @@ export default class EditEmployee extends Component {
         }))
     }
 
-    onReceiveSubmit = (e) => {
+    onReceiveSubmitEdit = (e) => {
         e.preventDefault();
         this.props.onReceiveSubmitEdit(this.state.employee);
        
+    }
+    onAddSubmit = (e) =>{
+        e.preventDefault();
+        this.props.onReceiveSubmitAdd(this.state.employee);
     }
     render() {
         return (
@@ -51,33 +54,33 @@ export default class EditEmployee extends Component {
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="" onSubmit={this.onReceiveSubmit}>
+                            <form action="" onSubmit={this.props.editMode === true ? this.onReceiveSubmitEdit : this.onAddSubmit}>
                                 <div className="modal-body">
                                     <div className="container-fluid">
 
                                         <div className="form-group">
                                             <label htmlFor="nameEdit" className="col-form-label">Name:</label>
-                                            <input type="text" className="form-control" name="name" id="nameEdit" onChange={this.handleChangeInput} value={this.state.employee.name} />
+                                            <input type="text" className="form-control" name="name" id="nameEdit" onChange={this.handleChangeInput} value={this.state.employee.name || ''} />
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="phoneEdit" className="col-form-label">Phone No:</label>
-                                            <input type="text" className="form-control" id="phoneEdit" name="phone" onChange={this.handleChangeInput} value={this.state.employee.phone} />
+                                            <input type="text" className="form-control" id="phoneEdit" name="phone" onChange={this.handleChangeInput} value={this.state.employee.phone || ''} />
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="emailEdit" className="col-form-label">Email:</label>
-                                            <input type="text" className="form-control" id="emailEdit" name="email" onChange={this.handleChangeInput} value={this.state.employee.email} />
+                                            <input type="text" className="form-control" id="emailEdit" name="email" onChange={this.handleChangeInput} value={this.state.employee.email || ''} />
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="empIdEdit" className="col-form-label">Emp Id:</label>
-                                            <input type="text" className="form-control" id="empIdEdit" name="empId" onChange={this.handleChangeInput} value={this.state.employee.empId} />
+                                            <input type="text" className="form-control" id="empIdEdit" name="empId" onChange={this.handleChangeInput} value={this.state.employee.empId || ''} />
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="companyEdit" className="col-form-label">Company:</label>
-                                            <input type="text" className="form-control" id="companyEdit" name="company" onChange={this.handleChangeInput} value={this.state.employee.company} />
+                                            <input type="text" className="form-control" id="companyEdit" name="company" onChange={this.handleChangeInput} value={this.state.employee.company || ''} />
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="addressEdit" className="col-form-label">Location:</label>
-                                            <input type="text" className="form-control" id="addressEdit" name="location" onChange={this.handleChangeInput} value={this.state.employee.location} />
+                                            <input type="text" className="form-control" id="addressEdit" name="location" onChange={this.handleChangeInput} value={this.state.employee.location || ''} />
                                         </div>
 
                                     </div>
