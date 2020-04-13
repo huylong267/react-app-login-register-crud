@@ -10,58 +10,59 @@ class Employee extends Component {
         super(props)
 
         this.state = {
-            employees:[],
+            employees :[
+                {
+                    id: 1,
+                    name: 'Long',
+                    phone: '123456',
+                    email: 'h@gmail.com',
+                    empId: '123',
+                    company: 'VNPT',
+                    location: 'HN'
+                },
+                {
+                    id: 2,
+                    name: 'Long',
+                    phone: '123456',
+                    email: 'h@gmail.com',
+                    empId: '123',
+                    company: 'VNPT',
+                    location: 'HN'
+                },
+                {
+                    id: 3,
+                    name: 'Long',
+                    phone: '123456',
+                    email: 'h@gmail.com',
+                    empId: '123',
+                    company: 'VNPT',
+                    location: 'HN'
+                },
+                {
+                    id: 4,
+                    name: 'Long',
+                    phone: '123456',
+                    email: 'h@gmail.com',
+                    empId: '123',
+                    company: 'VNPT',
+                    location: 'HN'
+                }
+            ],
             employee: {},
             isShowModal:true
         }
     }
-    componentDidMount(){
-        const employees = [
-            {
-                id: 1,
-                name: 'Long',
-                phone: '123456',
-                email: 'h@gmail.com',
-                empId: '123',
-                company: 'VNPT',
-                location: 'HN'
-            },
-            {
-                id: 2,
-                name: 'Long',
-                phone: '123456',
-                email: 'h@gmail.com',
-                empId: '123',
-                company: 'VNPT',
-                location: 'HN'
-            },
-            {
-                id: 3,
-                name: 'Long',
-                phone: '123456',
-                email: 'h@gmail.com',
-                empId: '123',
-                company: 'VNPT',
-                location: 'HN'
-            },
-            {
-                id: 4,
-                name: 'Long',
-                phone: '123456',
-                email: 'h@gmail.com',
-                empId: '123',
-                company: 'VNPT',
-                location: 'HN'
-            }
-        ]
+    componentDidMount(){ 
         if (localStorage && localStorage.getItem('listEmp')){
              const listEmp = localStorage.getItem('listEmp');
              const listParse = JSON.parse(listEmp)
             this.setState({employees:listParse });
         }else{
-             const list =JSON.stringify(employees)
+             const list =JSON.stringify(this.state.employees)
              localStorage.setItem('listEmp',list);
-             this.setState(employees)
+            //  this.setState(employees);
+           
+             
         }
     }
     onReceiveSubmitEdit = (employee) =>{
@@ -70,13 +71,11 @@ class Employee extends Component {
         if(index < 0) return;
         const newList = [...employees];
         newList.splice(index,1);
-        alert(newList);
+        const listFinal = [...newList,employee]
         this.setState({
-            employees: [...newList,employee]
+            employees: listFinal
         })
-        const  listEmp = this.state.employees;
-        alert(JSON.stringify(listEmp));
-        const listEmpSave = JSON.stringify(listEmp);
+        const listEmpSave = JSON.stringify(listFinal);
         localStorage.setItem('listEmp',listEmpSave);
         window.location.reload();
     }
@@ -190,5 +189,6 @@ class Employee extends Component {
         );
     }
 }
+
 
 export default Employee;
