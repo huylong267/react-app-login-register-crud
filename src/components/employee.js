@@ -49,11 +49,12 @@ class Employee extends Component {
                 }
             ],
             employee: {},
-            editMode: ''
+            editMode: '',
+            isShowModal: false
         }
     }
     componentDidMount() {
-    
+
         if (localStorage && localStorage.getItem('listEmp')) {
             const listEmp = localStorage.getItem('listEmp');
             const listParse = JSON.parse(listEmp)
@@ -63,7 +64,7 @@ class Employee extends Component {
             localStorage.setItem('listEmp', list);
             //   this.setState(employees);
         }
-        
+
     }
     onReceiveSubmitEdit = (employee) => {
         const { employees } = this.state;
@@ -104,7 +105,7 @@ class Employee extends Component {
         });
         this.setState({ employee: employee[0] })
     }
-  
+
     handleEditEmp = (event) => {
         const id = event.target.value;
         const empList = this.state.employees;
@@ -112,24 +113,25 @@ class Employee extends Component {
             return e.id === parseInt(id);
         });
         this.setState({
-            employee:employee,
-            editMode:true
+            employee: employee,
+            editMode: true,
+            isShowModal: true
         })
     }
 
-    handleAdd =()=>{
+    handleAdd = () => {
         this.setState({
-            editMode:false,
-            employee:{}
+            editMode: false,
+            employee: {}
         })
     }
     onReceiveSubmitAdd = (employee) => {
-        const {employees} = this.state;
-        const newList = [...employees,employee];
+        const { employees } = this.state;
+        const newList = [...employees, employee];
         this.setState({
-            employees:newList
+            employees: newList
         })
-        localStorage.setItem('listEmp',JSON.stringify(newList));
+        localStorage.setItem('listEmp', JSON.stringify(newList));
         window.location.reload();
     }
     render() {
@@ -197,14 +199,16 @@ class Employee extends Component {
                                 </div>
                                 <div className="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                             </div>
-                            <EditEmployee employee={this.state.employee}
-                                onReceiveSubmitEdit={this.onReceiveSubmitEdit}
-                                editMode = {this.state.editMode}
-                                onReceiveSubmitAdd = {this.onReceiveSubmitAdd}
-                            ></EditEmployee>
+                            {this.state.isShowModal ? 
+                                <EditEmployee employee={this.state.employee}
+                                    onReceiveSubmitEdit={this.onReceiveSubmitEdit}
+                                    editMode={this.state.editMode}
+                                    onReceiveSubmitAdd={this.onReceiveSubmitAdd}
+                                ></EditEmployee> : null
+                             }
                             <DeleteEmployee employee={this.state.employee}
                                 onReceiveSubmitDelete={this.onReceiveSubmitDelete}
-                             
+
                             ></DeleteEmployee>
                             <footer className="sticky-footer">
                                 <div className="container my-auto">

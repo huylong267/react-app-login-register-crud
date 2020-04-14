@@ -8,18 +8,20 @@ export default class EditEmployee extends Component {
 
     constructor(props) {
         super(props);
+        console.log((props));
         this.state = {
-            employee: {},
+            employee: props.employee,
 
         }
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (this.props.employee.id !== nextProps.employee.id) {
-            this.setState({ employee: nextProps.employee });
-        }
-        return true;
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (this.props.employee.id !== nextProps.employee.id) {
+    //         console.log(this.props.employee)
+    //         this.setState({ employee: nextProps.employee });
+    //     }
+    //     return true;
+    // }
 
     handleChangeInput = (e) => {
         const target = e.target;
@@ -29,22 +31,22 @@ export default class EditEmployee extends Component {
             employee: {
                 ...prevState.employee, [name]: value
             }
-
         }))
     }
 
     onReceiveSubmitEdit = (e) => {
         e.preventDefault();
         this.props.onReceiveSubmitEdit(this.state.employee);
-       
+
     }
-    onAddSubmit = (e) =>{
+    onAddSubmit = (e) => {
         e.preventDefault();
         this.props.onReceiveSubmitAdd(this.state.employee);
     }
     render() {
+
         return (
-            <div>    
+            <div>
                 <div className="modal fade" id="editModal" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
@@ -97,5 +99,6 @@ export default class EditEmployee extends Component {
 
             </div>
         );
+
     }
 }
